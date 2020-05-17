@@ -79,9 +79,13 @@ html {
 }
 .team h4 {
   font-size: 3vw;
-  margin: 1vw auto;
+  margin: 1vw auto 0 auto;
 }
 
+.points {
+  font-size: 2vw;
+  padding-bottom: 1vw;
+}
 /* Typhoon gif */
 
 #TyphoonGif {
