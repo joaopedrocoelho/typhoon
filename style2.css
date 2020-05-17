@@ -1,0 +1,93 @@
+body,
+html {
+  font-family: "Londrina Solid";
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+/* Tables
+================================== */
+.Rtable {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 0;
+}
+.Rtable-cell {
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  flex-grow: 0;
+  padding: 1em;
+  overflow: hidden;
+  list-style: none;
+  border: solid 3px rgb(0, 0, 0);
+  font-size: 4vw;
+}
+
+/* Table column sizing
+  ================================== */
+
+.Rtable--6cols > .Rtable-cell {
+  width: 16.6%;
+}
+/* Page styling
+  ================================== */
+@font-face {
+  font-family: "Londrina Solid";
+  src: url("fonts/LondrinaSolid-Regular.ttf");
+}
+
+/* table heads */
+
+.numbers {
+  background-color: white;
+  padding-right: 0.2em;
+  text-align: right;
+}
+
+.letters {
+  background-color: white;
+  text-align: center;
+  padding-bottom: 0;
+}
+/* Button styling */
+.place {
+  background: linear-gradient(to bottom, #658b5d 5%, #88c27c 100%);
+  font-size: 0;
+  font-weight: bolder;
+  color: white;
+  text-align: center;
+}
+
+.place:hover {
+  background: linear-gradient(to bottom, #68f54c 5%, #61b350 100%);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Teams */
+.team {
+  margin: 0 2vw 0 0;
+  text-align: center;
+}
+.team h4 {
+  font-size: 3vw;
+  margin: 1vw auto;
+}
+
+/* Typhoon gif */
+
+#TyphoonGif {
+  position: relative;
+  visibility: hidden;
+  height: 50vw;
+  width: 50vw;
+  margin: 0 auto;
+  background-image: url("typhoongif.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 9999;
+}
