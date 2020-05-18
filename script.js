@@ -4,6 +4,15 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
+// Typhoon GIF visibility
+function makeVisible(status) {
+  let TyphoonGif = document.getElementById("TyphoonGif");
+  if (status == "visible") {
+    TyphoonGif.style.visibility = "visible";
+  } else {
+    TyphoonGif.style.visibility = "hidden";
+  }
+}
 
 //points of the game
 const possibleValues = [1, 2, 3, 4, "T"];
@@ -29,73 +38,26 @@ function assignTs() {
 
 assignTs();
 
-//team 1
-let team1Points = document.getElementById("team1");
-team1Points.innerHTML = 0;
-//team 2
-let team2Points = document.getElementById("team2");
-team2Points.innerHTML = 0;
-// //team 3
-// let team3Points = document.getElementById("team3");
-// team3Points.innerHTML = 0;
-// //team 4
-// let team4Points = document.getElementById("team4");
-// team4Points.innerHTML = 0;
-// //team 5
-// let team4Points = document.getElementById("team4");
-// team4Points.innerHTML = 0;*/
+//assign points to a Team
+const NUM_PLAYERS = 2;
 
-let teamsArr = [1, 2, 3];
-let whoPlayed = teamsArr.indexOf(1);
+// Make an array filled with 0s, with a length of NUM_PLAYERS:
+const scores = Array.from({ length: NUM_PLAYERS }, () => 0);
 
-// Typhoon GIF visibility
-function makeVisible(status) {
-  let TyphoonGif = document.getElementById("TyphoonGif");
-  if (status == "visible") {
-    TyphoonGif.style.visibility = "visible";
-  } else {
-    TyphoonGif.style.visibility = "hidden";
-  }
-}
+let activePlayerIndex = 0;
+
 //assign points to a Team
 function assignPoints(points) {
-  if (points == "T") {
-    window.setTimeout(makeVisible, 500, "visible");
-    window.setTimeout(makeVisible, 2000, "hidden");
-    //check who's turn is it1
-    switch (whoPlayed) {
-      case 0:
-        team1Points.innerHTML = parseInt(team1Points.innerHTML) - 3;
-        whoPlayed += 1;
-        break;
-      case 1:
-        team2Points.innerHTML = parseInt(team2Points.innerHTML) - 3;
-        whoPlayed -= 1;
-        break;
-      // case 2:
-      //   team3Points.innerHTML = parseInt(team3Points.innerHTML) - 3;
-      //   whoPlayed = teamsArr.indexOf(1);
-      //   break;
-    }
+  if (points !== "T") {
+    scores[activePlayerIndex] += parseInt(points);
+    document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
+      scores[activePlayerIndex];
+    activePlayerIndex = (activePlayerIndex + 1) % NUM_PLAYERS;
   } else {
-    //check who's turn is it
-    switch (whoPlayed) {
-      case 0:
-        team1Points.innerHTML =
-          parseInt(team1Points.innerHTML) + parseInt(points);
-        whoPlayed += 1;
-        break;
-      case 1:
-        team2Points.innerHTML =
-          parseInt(team2Points.innerHTML) + parseInt(points);
-        whoPlayed -= 1;
-        break;
-      // case 2:
-      //   team3Points.innerHTML =
-      //     parseInt(team3Points.innerHTML) + parseInt(points);
-      //   whoPlayed = teamsArr.indexOf(1);
-      //   break;
-    }
+    scores[activePlayerIndex] -= 3;
+    document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
+      scores[activePlayerIndex];
+    activePlayerIndex = (activePlayerIndex + 1) % NUM_PLAYERS;
   }
 }
 
