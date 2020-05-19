@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,  initial-scale=1.0" />
     <title>Typhoon</title>
-    <link rel="stylesheet" type="text/css" href="style2.css" />
-  </head>
+    <link rel="stylesheet" type="text/css" href="styles/style2.css" />
+      </head>
   <body>
     
     <!-- <div class="title"></div> -->
-    <div class="Rtable Rtable--6cols">
+    <div class="Rtable Rtable--6cols" id='game'>
       <div class="Rtable-cell letters"></div>
       <div class="Rtable-cell letters">A</div>
       <div class="Rtable-cell letters">B</div>
@@ -52,25 +52,37 @@
       <div class="Rtable-cell place" onclick="showPoints()"></div>
       <div class="Rtable-cell place" onclick="showPoints()"></div>
 
-      <div class="teamsContainer">
-      <div class="team">
-        <h4>Team A</h4>
-        <span class="points" id="team1"></span>
-      </div>
-      <div class="team">
-        <h4>Team B</h4>
-        <span class="points" id="team2"></span>
-      </div>
+      <div id="teamsContainer">
+        <button class="btn skipTurn" onclick="skipTurn()">Skip turn</button>
       </div>
 
-    </div>
+    </>
 
   </div>
+    <!-- TyphoonGif -->
     <div id="TyphoonGif"></div>
-    <!-- <div class="team">
-      <h4>Team 3</h4>
-      <span class="points" id="team3"></span>
-    </div> -->
+
+    <!-- Game options modal -->
+<div class="modal" id="gameOptions">
+      <img src="img/logo.png" alt="" class="logo" />
+      <p class="message">Game Options</p>
+      <p id="T">T = : </p>
+      <div class="options">
+        <button class="btn" onclick="generateT()">Generate</button>
+      </div>
+      <p class="message">Number of Teams:</p>
+      <div class="options">
+        <button class="btn round-corners minus" onclick="addOrRemoveTeam('remove')"></button>
+        <button class="btn no-effects" id='numberOfTeams'>2</button>
+        <button class="btn round-corners plus" onclick="addOrRemoveTeam('add')"></button>
+      </div>
+      <div class="options">
+        <button class="btn" onclick="resetOptions()">Reset</button>
+        <button class="btn" onclick="startGame()">Go!</button>
+      </div>
+    </div>
     <script src="script.js"></script>
+
   </body>
 </html>
+
