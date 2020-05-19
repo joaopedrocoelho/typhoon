@@ -139,6 +139,7 @@ let activePlayerIndex = 0;
 
 function assignPoints(points) {
   if (points !== "T") {
+makeVisible("visible");
     scores[activePlayerIndex] += parseInt(points);
     document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
       scores[activePlayerIndex];
