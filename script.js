@@ -93,6 +93,7 @@ function addOrRemoveTeam(operator) {
 //assign number of Teams
 let NUM_PLAYERS = 0;
 let scores = [];
+
 /* start the game */
 
 function startGame() {
@@ -139,7 +140,6 @@ let activePlayerIndex = 0;
 
 function assignPoints(points) {
   if (points !== "T") {
-    makeVisible("visible");
     scores[activePlayerIndex] += parseInt(points);
     document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
       scores[activePlayerIndex];
