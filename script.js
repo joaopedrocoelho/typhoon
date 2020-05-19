@@ -9,7 +9,7 @@ const audio = new Audio("sounds/typhoon.mp3");
 function makeVisible(status) {
   let TyphoonGif = document.getElementById("TyphoonGif");
   if (status == "visible") {
-    //audio.play();
+    audio.play();
     setTimeout(() => (TyphoonGif.style.visibility = "visible"), 3000);
     setTimeout(() => (TyphoonGif.style.visibility = "hidden"), 7000);
   } else {
@@ -139,7 +139,7 @@ let activePlayerIndex = 0;
 
 function assignPoints(points) {
   if (points !== "T") {
-makeVisible("visible");
+    makeVisible("visible");
     scores[activePlayerIndex] += parseInt(points);
     document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
       scores[activePlayerIndex];
