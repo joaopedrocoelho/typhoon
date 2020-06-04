@@ -34,7 +34,7 @@ assignValues();
 
 //assign 5 Ts randomly
 function assignTs() {
-  for (let i = 0; i <= 5; i++) {
+  for (let i = 0; i <= 4; i++) {
     places[getRandomInt(0, 24)].innerHTML = possibleValues[4];
   }
 }
@@ -49,8 +49,7 @@ let giveOrLoseObject = {
   lose: (number1, number2) => number1 - number2,
 };
 let giveOrLoseArr = Object.keys(giveOrLoseObject);
-let tPoints = [1, 2, 3, 4 /* "half", "all"*/];
-let tPointsToWho = ["of your", "of the other"];
+let tPoints = [3, 4, 5, 6];
 
 /* modal generate T */
 function generateT() {
@@ -95,6 +94,8 @@ let NUM_PLAYERS = 0;
 let scores = [];
 
 /* start the game */
+let table = document.getElementById("game");
+let modal = document.getElementById("gameOptions");
 
 function startGame() {
   NUM_PLAYERS = document.getElementById("numberOfTeams").innerText;
@@ -103,8 +104,7 @@ function startGame() {
   scores = Array.from({ length: NUM_PLAYERS }, () => 0);
   highlightPlayer();
   //modal close animations
-  let table = document.getElementById("game");
-  let modal = document.getElementById("gameOptions");
+
   console.log(NUM_PLAYERS, typeof NUM_PLAYERS);
   table.style.animationName = "unBlur";
   setTimeout(
@@ -160,9 +160,23 @@ function assignPoints(points) {
 
 //shows the points when the cell is clicked
 function showPoints() {
+  let scorePopUpBox = document.getElementById("scorePopUpBox");
+  let scorePopUp = document.getElementById("scorePopUp");
   event.target.style.fontSize = "4vw";
   event.target.className = "Rtable-cell place disabled";
   assignPoints(event.target.innerHTML);
+
+  scorePopUp.innerText = event.target.innerText;
+  scorePopUpBox.style.visibility = "visible";
+  scorePopUpBox.style.animationName = "jumpInLeft";
+  setTimeout(
+    () => (
+      (scorePopUpBox.style.animationDuration = "1s"),
+      (scorePopUpBox.style.animationName = "jumpOutRight")
+    ),
+    1500
+  );
+  setTimeout(() => (scorePopUpBox.style.visibility = "hidden"), 2500);
 }
 
 // skip turn button
