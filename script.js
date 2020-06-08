@@ -63,7 +63,7 @@ function generateT() {
     point(s)`;
   document.getElementById("T").insertAdjacentText("beforeend", stringOfT);
 }
-
+generateT();
 /* assign T points */
 function getTPoints(number1, number2) {
   if (giveOrLoseArr[0] == valueOfT[0]) {
