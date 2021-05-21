@@ -23,6 +23,8 @@ const possibleValues = [1, 2, 3, 4, "T"];
 // selects all the cells
 const places = document.getElementsByClassName("place");
 
+console.log("places", places.innerText);
+
 //assign random numbers to each cell
 function assignValues() {
   for (let i = 0; i <= places.length - 1; i++) {
@@ -154,16 +156,54 @@ function assignPoints(points) {
       scores[activePlayerIndex];
     activePlayerIndex = (activePlayerIndex + 1) % NUM_PLAYERS;
   }
-  console.log(activePlayerIndex);
+
   highlightPlayer();
 }
 
+/* end game */
+const disabledPlaces = [];
+const gameOver = document.getElementById("gameOver");
+gameOver.style.visibility = "hidden";
+const celebrationGifsArr = [
+  "img/celebration/funny-celebrate-5.gif",
+  "img/celebration/funny-celebrate-8.gif",
+  "img/celebration/funny-celebrate-14.gif",
+  "img/celebration/funny-celebrate-56.gif",
+  "img/celebration/pokemon.gif",
+  "img/celebration/tenor.gif",
+];
+const random = Math.floor(Math.random() * celebrationGifsArr.length);
+
+let winners; //will return the indexes of the winners
+let winMessage = document.getElementById("winners");
+const celebrationGif = document.getElementById("celebrationGif");
+
+function getAllIndexes(arr, val) {
+  var indexes = [],
+    i = -1;
+  while ((i = arr.indexOf(val, i + 1)) != -1) {
+    indexes.push(i);
+  }
+  return indexes;
+}
+
+function checkWinner() {
+  const highestScore = Math.max(...scores);
+  winners = getAllIndexes(scores, highestScore);
+  const winningTeams = winners.map(
+    (e) => document.getElementById(`teamName${e}`).innerText
+  );
+  winMessage.innerText = `${winningTeams} won!`;
+  celebrationGif.src = celebrationGifsArr[random];
+}
+
 //shows the points when the cell is clicked
-function showPoints() {
+function showPoints(event) {
   let scorePopUpBox = document.getElementById("scorePopUpBox");
   let scorePopUp = document.getElementById("scorePopUp");
   event.target.style.fontSize = "4vw";
   event.target.className = "Rtable-cell place disabled";
+  disabledPlaces.push(event.target);
   assignPoints(event.target.innerHTML);
 
   scorePopUp.innerText = event.target.innerText;
@@ -177,6 +217,21 @@ function showPoints() {
     1500
   );
   setTimeout(() => (scorePopUpBox.style.visibility = "hidden"), 2500);
+  console.log("disabledPlaces.length", disabledPlaces.length);
+  if (disabledPlaces.length === 25) {
+    setTimeout(
+      () => (
+        (gameOver.style.animationName = "bounceInDown"),
+        (gameOver.style.visibility = "visible"),
+        (table.style.filter = "blur(5px)"),
+        (table.style.opacity = "0.7"),
+        (table.style.pointerEvents = "none")
+      ),
+      2000
+    );
+
+    checkWinner();
+  }
 }
 
 // skip turn button

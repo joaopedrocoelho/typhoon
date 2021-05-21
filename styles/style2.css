@@ -175,6 +175,23 @@ div.numbers {
   animation-duration: 1.5s;
 }
 
+.modalGameOver {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -10%);
+  width: 50vw;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2vw 2vw;
+  border: 3px solid black;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  animation-duration: 1.5s;
+}
+
 @keyframes bounceInDown {
   0% {
     top: -500%;
@@ -202,6 +219,11 @@ div.numbers {
 .message {
   font-size: 5vw;
   margin: 1vw 0;
+}
+
+.endGameMessage {
+  font-size: 4vw;
+  margin: 3vw auto;
 }
 .btn {
   color: inherit;
@@ -270,6 +292,13 @@ div.options + div.options {
 .no-effects:hover {
   box-shadow: none;
   transform: translate(0, 0);
+}
+
+/*celebration gif */
+#celebrationGif {
+  display: flex;
+  margin: auto;
+  width: 300px;
 }
 
 /* scorePopup */
