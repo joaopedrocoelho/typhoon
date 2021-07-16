@@ -5,6 +5,9 @@ window.addEventListener("beforeunload", function (e) {
   e.returnValue = "";
 });
 
+
+
+
 // gets a random integer
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -25,7 +28,7 @@ function makeVisible(status) {
 }
 
 //points of the game
-const possibleValues = [1, 2, 3, 4, "T"];
+const possibleValues = [1, 2, 3, 4, "🌪️"];
 
 // selects all the cells
 const places = document.getElementsByClassName("place");
@@ -44,7 +47,8 @@ assignValues();
 //assign 5 Ts randomly
 function assignTs() {
   for (let i = 0; i <= 4; i++) {
-    places[getRandomInt(0, 24)].innerHTML = possibleValues[4];
+    let randomPlace = getRandomInt(0, 24);
+    places[randomPlace].innerHTML = possibleValues[4];
   }
 }
 
@@ -62,7 +66,7 @@ let tPoints = [3, 4, 5, 6];
 
 /* modal generate T */
 function generateT() {
-  document.getElementById("T").innerText = "T = ";
+  document.getElementById("T").innerText = "🌪️ = ";
   valueOfT = [
     giveOrLoseArr[getRandomInt(0, 2)],
     tPoints[getRandomInt(0, 4)],
@@ -134,7 +138,7 @@ function createTeams(number) {
   for (i = 1; i <= number; i++) {
     let team = `<div class="team">
     <h4 id="teamName${i - 1}">Team ${i}</h4>
-    <span class="points" id="team${i}"></span>
+    <span class="points" id="team${i}">0</span>
   </div>`;
     document
       .getElementById("teamsContainer")
@@ -148,7 +152,8 @@ let activePlayerIndex = 0;
 // assign T points
 
 function assignPoints(points) {
-  if (points !== "T") {
+  if (points !== "🌪️") {
+    
     scores[activePlayerIndex] += parseInt(points);
     document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
       scores[activePlayerIndex];
@@ -204,8 +209,49 @@ function checkWinner() {
   celebrationGif.src = celebrationGifsArr[random];
 }
 
+//undo button
+function disableUndo(boolean) {
+  boolean? document.getElementById('undo').disabled = true :
+  document.getElementById('undo').disabled = false;
+}
+disableUndo(true);
+
+let lastOpenedCell = undefined;
+let previousScore = 0;
+
+function undo() {
+  //take out the points 
+  let currentPoints = parseInt(document.getElementById(`team${activePlayerIndex+1}`).innerHTML);
+  let newPoints = currentPoints - previousScore;  
+  //go back to previous player
+  if(activePlayerIndex > 0) {
+    activePlayerIndex = (activePlayerIndex - 1) % NUM_PLAYERS;
+  } else {
+    activePlayerIndex = NUM_PLAYERS -1 ;
+  }
+   scores[activePlayerIndex] = newPoints;
+  document.getElementById(`team${activePlayerIndex+1}`).innerHTML = scores[activePlayerIndex];
+  highlightPlayer();
+
+  disabledPlaces.pop();
+  //redo the cell
+  console.log("lastOpenedCell", lastOpenedCell);
+  lastOpenedCell.innerHTML = possibleValues[getRandomInt(0,4)];
+  lastOpenedCell.style.fontSize = 0;
+  lastOpenedCell.classList.remove('disabled');
+
+  //disable undo
+  disableUndo(true);
+
+}
+
+
 //shows the points when the cell is clicked
 function showPoints(event) {
+  previousScore =  parseInt(document.getElementById(`team${activePlayerIndex+1}`).innerHTML);
+ lastOpenedCell= event.target;
+ disableUndo(false);
+
   let scorePopUpBox = document.getElementById("scorePopUpBox");
   let scorePopUp = document.getElementById("scorePopUp");
   event.target.style.fontSize = "4vw";
@@ -213,7 +259,10 @@ function showPoints(event) {
   disabledPlaces.push(event.target);
   assignPoints(event.target.innerHTML);
 
-  scorePopUp.innerText = event.target.innerText;
+  scorePopUpBox.innerText = event.target.innerText;
+  if (event.target.innerText === '🌪️') {
+    scorePopUpBox.style.fontSize ='18vw'
+  }
   scorePopUpBox.style.visibility = "visible";
   scorePopUpBox.style.animationName = "jumpInLeft";
   setTimeout(
@@ -224,7 +273,7 @@ function showPoints(event) {
     1500
   );
   setTimeout(() => (scorePopUpBox.style.visibility = "hidden"), 2500);
-  console.log("disabledPlaces.length", disabledPlaces.length);
+  
   if (disabledPlaces.length === 25) {
     setTimeout(
       () => (
@@ -234,12 +283,14 @@ function showPoints(event) {
         (table.style.opacity = "0.7"),
         (table.style.pointerEvents = "none")
       ),
-      2000
+      3000
     );
 
     checkWinner();
   }
 }
+
+
 
 // skip turn button
 function skipTurn() {
@@ -249,15 +300,20 @@ function skipTurn() {
 
 //highlights current player
 function highlightPlayer() {
-  document.getElementById(
-    "teamName" + (activePlayerIndex % NUM_PLAYERS)
-  ).style.color = "red";
-  if (activePlayerIndex > 0 && activePlayerIndex < NUM_PLAYERS) {
+
+  for (let team = 0; team < NUM_PLAYERS; team++) {
+    
+   if (activePlayerIndex === team) {
     document.getElementById(
-      "teamName" + ((activePlayerIndex - 1) % NUM_PLAYERS)
-    ).style.color = "black";
-  } else {
-    document.getElementById("teamName" + (NUM_PLAYERS - 1)).style.color =
-      "black";
+      "teamName" + (activePlayerIndex)
+    ).classList.toggle('selected');
+   } else {
+    document.getElementById(
+      "teamName" + (team)
+    ).classList.remove('selected');
+   }
   }
+ 
 }
+
+
