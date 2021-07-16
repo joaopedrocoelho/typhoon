@@ -268,7 +268,7 @@ div.numbers {
   background-color: #fee140;
   background-image: linear-gradient(to bottom,  0%, #FFFF7A #FFF500 100%);
   border: 3px solid var(--dark-blue);
-  
+  text-shadow: var(--dark-blue) 0px -2px 0;
 box-shadow: inset 0px -5px 10px 1px rgba(1, 6, 77, 0.6);
   font-size: 0;
   font-weight: bolder;
@@ -531,6 +531,7 @@ div.options + div.options {
   justify-content: center;
   text-align: center;
   border: 0.5vw solid black;
+  text-shadow: var(--dark-blue) 0px -3px 0;
   border-radius: 10%;
   color: white;
   animation-duration: 1s;
