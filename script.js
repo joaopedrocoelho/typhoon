@@ -5,9 +5,6 @@ window.addEventListener("beforeunload", function (e) {
   e.returnValue = "";
 });
 
-
-
-
 // gets a random integer
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -66,7 +63,6 @@ let tPoints = [3, 4, 5, 6];
 
 /* modal generate T */
 function generateT() {
-  document.getElementById("T").innerText = "🌪️ = ";
   valueOfT = [
     giveOrLoseArr[getRandomInt(0, 2)],
     tPoints[getRandomInt(0, 4)],
@@ -153,7 +149,6 @@ let activePlayerIndex = 0;
 
 function assignPoints(points) {
   if (points !== "🌪️") {
-    
     scores[activePlayerIndex] += parseInt(points);
     document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
       scores[activePlayerIndex];
@@ -211,8 +206,9 @@ function checkWinner() {
 
 //undo button
 function disableUndo(boolean) {
-  boolean? document.getElementById('undo').disabled = true :
-  document.getElementById('undo').disabled = false;
+  boolean
+    ? (document.getElementById("undo").disabled = true)
+    : (document.getElementById("undo").disabled = false);
 }
 disableUndo(true);
 
@@ -220,37 +216,40 @@ let lastOpenedCell = undefined;
 let previousScore = 0;
 
 function undo() {
-  //take out the points 
-  let currentPoints = parseInt(document.getElementById(`team${activePlayerIndex+1}`).innerHTML);
-  let newPoints = currentPoints - previousScore;  
+  //take out the points
+  let currentPoints = parseInt(
+    document.getElementById(`team${activePlayerIndex + 1}`).innerHTML
+  );
+  let newPoints = currentPoints - previousScore;
   //go back to previous player
-  if(activePlayerIndex > 0) {
+  if (activePlayerIndex > 0) {
     activePlayerIndex = (activePlayerIndex - 1) % NUM_PLAYERS;
   } else {
-    activePlayerIndex = NUM_PLAYERS -1 ;
+    activePlayerIndex = NUM_PLAYERS - 1;
   }
-   scores[activePlayerIndex] = newPoints;
-  document.getElementById(`team${activePlayerIndex+1}`).innerHTML = scores[activePlayerIndex];
+  scores[activePlayerIndex] = newPoints;
+  document.getElementById(`team${activePlayerIndex + 1}`).innerHTML =
+    scores[activePlayerIndex];
   highlightPlayer();
 
   disabledPlaces.pop();
   //redo the cell
   console.log("lastOpenedCell", lastOpenedCell);
-  lastOpenedCell.innerHTML = possibleValues[getRandomInt(0,4)];
+  lastOpenedCell.innerHTML = possibleValues[getRandomInt(0, 4)];
   lastOpenedCell.style.fontSize = 0;
-  lastOpenedCell.classList.remove('disabled');
+  lastOpenedCell.classList.remove("disabled");
 
   //disable undo
   disableUndo(true);
-
 }
-
 
 //shows the points when the cell is clicked
 function showPoints(event) {
-  previousScore =  parseInt(document.getElementById(`team${activePlayerIndex+1}`).innerHTML);
- lastOpenedCell= event.target;
- disableUndo(false);
+  previousScore = parseInt(
+    document.getElementById(`team${activePlayerIndex + 1}`).innerHTML
+  );
+  lastOpenedCell = event.target;
+  disableUndo(false);
 
   let scorePopUpBox = document.getElementById("scorePopUpBox");
   let scorePopUp = document.getElementById("scorePopUp");
@@ -260,8 +259,8 @@ function showPoints(event) {
   assignPoints(event.target.innerHTML);
 
   scorePopUpBox.innerText = event.target.innerText;
-  if (event.target.innerText === '🌪️') {
-    scorePopUpBox.style.fontSize ='18vw'
+  if (event.target.innerText === "🌪️") {
+    scorePopUpBox.style.fontSize = "18vw";
   }
   scorePopUpBox.style.visibility = "visible";
   scorePopUpBox.style.animationName = "jumpInLeft";
@@ -273,7 +272,7 @@ function showPoints(event) {
     1500
   );
   setTimeout(() => (scorePopUpBox.style.visibility = "hidden"), 2500);
-  
+
   if (disabledPlaces.length === 25) {
     setTimeout(
       () => (
@@ -290,8 +289,6 @@ function showPoints(event) {
   }
 }
 
-
-
 // skip turn button
 function skipTurn() {
   activePlayerIndex = (activePlayerIndex + 1) % NUM_PLAYERS;
@@ -300,20 +297,13 @@ function skipTurn() {
 
 //highlights current player
 function highlightPlayer() {
-
   for (let team = 0; team < NUM_PLAYERS; team++) {
-    
-   if (activePlayerIndex === team) {
-    document.getElementById(
-      "teamName" + (activePlayerIndex)
-    ).classList.toggle('selected');
-   } else {
-    document.getElementById(
-      "teamName" + (team)
-    ).classList.remove('selected');
-   }
+    if (activePlayerIndex === team) {
+      document
+        .getElementById("teamName" + activePlayerIndex)
+        .classList.toggle("selected");
+    } else {
+      document.getElementById("teamName" + team).classList.remove("selected");
+    }
   }
- 
 }
-
-
