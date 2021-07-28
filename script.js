@@ -45,11 +45,14 @@ assignValues();
 function assignTs() {
   for (let i = 0; i <= 4; i++) {
     let randomPlace = getRandomInt(0, 24);
-    places[randomPlace].innerHTML = possibleValues[4];
+    places[randomPlace].innerText = possibleValues[4];
   }
 }
 
 assignTs();
+
+const gameOver = document.getElementById("gameOver");
+gameOver.style.visibility = "hidden";
 
 /* generate T value */
 let valueOfT = [];
@@ -68,10 +71,11 @@ function generateT() {
     tPoints[getRandomInt(0, 4)],
     // tPointsToWho[getRandomInt(0, 2)],
   ];
-  let stringOfT = `${valueOfT[0]} ${valueOfT[1]} 
-    point(s)`;
-  document.getElementById("T").insertAdjacentText("beforeend", stringOfT);
+  let stringOfT = `${valueOfT[0]} ${valueOfT[1]} point(s)`;
+
+  document.getElementById("valueOfT").innerText = stringOfT;
 }
+
 generateT();
 /* assign T points */
 function getTPoints(number1, number2) {
@@ -169,8 +173,7 @@ function assignPoints(points) {
 
 /* end game */
 const disabledPlaces = [];
-const gameOver = document.getElementById("gameOver");
-gameOver.style.visibility = "hidden";
+
 const celebrationGifsArr = [
   "img/celebration/funny-celebrate-5.gif",
   "img/celebration/funny-celebrate-8.gif",
