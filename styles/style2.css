@@ -793,7 +793,8 @@ div.options + div.options {
   animation-iteration-count: infinite;
 }
 
-* Pulse */ @-webkit-keyframes hvr-pulse {
+/* Pulse */
+@-webkit-keyframes hvr-pulse {
   25% {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
@@ -819,8 +820,4 @@ div.options + div.options {
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-}
-.hvr-pulse:hover,
-.hvr-pulse:focus,
-.hvr-pulse:active {
 }

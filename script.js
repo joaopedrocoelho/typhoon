@@ -262,8 +262,10 @@ function showPoints(event) {
   assignPoints(event.target.innerHTML);
 
   scorePopUpBox.innerText = event.target.innerText;
+  console.log("scorePopUpBox.innerText", event.target.innerText);
   if (event.target.innerText === "🌪️") {
     scorePopUpBox.style.fontSize = "18vw";
+    scorePopUpBox.innerHTML = '<span class="typhoon-emoji">🌪️</span>';
   }
   scorePopUpBox.style.visibility = "visible";
   scorePopUpBox.style.animationName = "jumpInLeft";
