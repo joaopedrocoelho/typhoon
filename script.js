@@ -45,7 +45,7 @@ assignValues();
 function assignTs() {
   for (let i = 0; i <= 4; i++) {
     let randomPlace = getRandomInt(0, 24);
-    places[randomPlace].innerText = possibleValues[4];
+    places[randomPlace].innerHTML = '<span class="typhoon-emoji">🌪️</span>';
   }
 }
 
@@ -152,7 +152,7 @@ let activePlayerIndex = 0;
 // assign T points
 
 function assignPoints(points) {
-  if (points !== "🌪️") {
+  if (points !== '<span class="typhoon-emoji">🌪️</span>') {
     scores[activePlayerIndex] += parseInt(points);
     document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
       scores[activePlayerIndex];
