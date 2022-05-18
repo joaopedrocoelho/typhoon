@@ -30,7 +30,7 @@ const possibleValues = [1, 2, 3, 4, "🌪️"];
 // selects all the cells
 const places = document.getElementsByClassName("place");
 
-console.log("places", places.innerText);
+
 
 //assign random numbers to each cell
 function assignValues() {
@@ -56,6 +56,7 @@ gameOver.style.visibility = "hidden";
 
 /* generate T value */
 let valueOfT = [];
+let numberOfT;
 // let giveOrLose = ["win", "lose"];
 let giveOrLoseObject = {
   win: (number1, number2) => number1 + number2,
@@ -71,8 +72,9 @@ function generateT() {
     tPoints[getRandomInt(0, 4)],
     // tPointsToWho[getRandomInt(0, 2)],
   ];
+  let plusOrMinus = valueOfT[0] == "win" ? "+" : "-";
   let stringOfT = `${valueOfT[0]} ${valueOfT[1]} point(s)`;
-
+  numberOfT = parseInt(`${plusOrMinus}${valueOfT[1]}`);
   document.getElementById("valueOfT").innerText = stringOfT;
 }
 
@@ -118,7 +120,7 @@ function startGame() {
   highlightPlayer();
   //modal close animations
 
-  console.log(NUM_PLAYERS, typeof NUM_PLAYERS);
+
   table.style.animationName = "unBlur";
   setTimeout(
     () => (
@@ -159,10 +161,12 @@ function assignPoints(points) {
     activePlayerIndex = (activePlayerIndex + 1) % NUM_PLAYERS;
   } else {
     makeVisible("visible");
-    scores[activePlayerIndex] = getTPoints(
-      scores[activePlayerIndex],
-      valueOfT[1]
-    );
+    if(scores[activePlayerIndex] += numberOfT <0) {
+      scores[activePlayerIndex] = 0;
+    } else {
+      scores[activePlayerIndex] += numberOfT;
+    }
+    
     document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
       scores[activePlayerIndex];
     activePlayerIndex = (activePlayerIndex + 1) % NUM_PLAYERS;
@@ -219,11 +223,17 @@ let lastOpenedCell = undefined;
 let previousScore = 0;
 
 function undo() {
-  //take out the points
+  
+  let playerWhoWantsToUndo = activePlayerIndex == 0 ? NUM_PLAYERS - 1 : activePlayerIndex - 1;
+    //take out the points
   let currentPoints = parseInt(
-    document.getElementById(`team${activePlayerIndex + 1}`).innerHTML
+    document.getElementById(`team${playerWhoWantsToUndo + 1}`).innerHTML
   );
-  let newPoints = currentPoints - previousScore;
+  
+  let newPoints = previousScore;
+
+
+  
   //go back to previous player
   if (activePlayerIndex > 0) {
     activePlayerIndex = (activePlayerIndex - 1) % NUM_PLAYERS;
@@ -237,7 +247,7 @@ function undo() {
 
   disabledPlaces.pop();
   //redo the cell
-  console.log("lastOpenedCell", lastOpenedCell);
+ 
   lastOpenedCell.innerHTML = possibleValues[getRandomInt(0, 4)];
   lastOpenedCell.style.fontSize = 0;
   lastOpenedCell.classList.remove("disabled");
@@ -262,7 +272,7 @@ function showPoints(event) {
   assignPoints(event.target.innerHTML);
 
   scorePopUpBox.innerText = event.target.innerText;
-  console.log("scorePopUpBox.innerText", event.target.innerText);
+ 
   if (event.target.innerText === "🌪️") {
     scorePopUpBox.style.fontSize = "18vw";
     scorePopUpBox.innerHTML = '<span class="typhoon-emoji">🌪️</span>';
