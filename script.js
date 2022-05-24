@@ -161,11 +161,13 @@ function assignPoints(points) {
     activePlayerIndex = (activePlayerIndex + 1) % NUM_PLAYERS;
   } else {
     makeVisible("visible");
-    if(scores[activePlayerIndex] += numberOfT <0) {
-      scores[activePlayerIndex] = 0;
-    } else {
-      scores[activePlayerIndex] += numberOfT;
-    }
+    let tempScore = scores[activePlayerIndex] + numberOfT;
+    console.log('tempScore',tempScore);
+    scores[activePlayerIndex] = tempScore < 0 ? 0 : tempScore;
+    console.log('scores[activePlayerIndex]',scores[activePlayerIndex]);
+ 
+
+  
     
     document.getElementById("team" + (activePlayerIndex + 1)).innerHTML =
       scores[activePlayerIndex];

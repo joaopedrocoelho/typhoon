@@ -207,6 +207,8 @@ html {
   /* border-image-source: linear-gradient(to right, #1cf7ff, #00c3ff); */
   font-size: 4vw;
   place-items: center;
+  display: FLEX;
+  justify-content: center;
 }
 
 /* Table column sizing
